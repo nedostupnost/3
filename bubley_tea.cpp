@@ -1,7 +1,10 @@
 #include "tPoint.hpp"
+#include <SFML/Graphics.hpp>
+#include <ctime>
+#include <vector>
 
 int main(void) {
-  srand(unsigned(time(NULL)));
+  srand(static_cast<unsigned>(time(NULL)));
 
   const short num = 100;
   std::vector<tPoint> points;
@@ -26,10 +29,12 @@ int main(void) {
     window.clear();
 
     for (auto &point : points) {
-      point.updateRM(time, window.getSize());
+      point.updateRM(time, window.getSize(), points);
       point.draw(window);
     }
 
     window.display();
   }
+
+  return 0;
 }
