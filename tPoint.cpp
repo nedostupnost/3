@@ -21,19 +21,23 @@ void tPoint::updateLM(float time, sf::Vector2u windowSize,
     speed.y *= -1;
   }
 
+  if (rand() % 100 < 0) {
+    speed.x = (rand() % 100) * (rand() % 2 == 0 ? 1 : -1);
+    speed.y = (rand() % 100) * (rand() % 2 == 0 ? 1 : -1);
+  }
+
   if (position.x < 0 || position.x > windowSize.x) {
-    speed.x = -speed.x + (rand() % 3);
+    speed.x = -speed.x + (rand() % 50 - 10);
   }
   if (position.y < 0 || position.y > windowSize.y) {
-    speed.y = -speed.y + (rand() % 3);
+    speed.y = -speed.y + (rand() % 50 - 10);
   }
 
   for (const auto &other : points) {
     if (&other != this) {
       float distance = sqrt(pow(position.x - other.position.x, 2) +
-                            pow(other.position.y - other.position.y, 2));
-
-      if (distance < 20) {
+                            pow(position.y - other.position.y, 2));
+      if (distance < 10) {
         sf::Vector2f direction = position - other.position;
         direction /= distance;
         speed += direction * static_cast<float>(50);
@@ -43,7 +47,6 @@ void tPoint::updateLM(float time, sf::Vector2u windowSize,
 
   point.setPosition(position);
 }
-
 void tPoint::updateRM(float time, sf::Vector2u windowSize,
                       std::vector<tPoint> &points) {
   position += speed * time;

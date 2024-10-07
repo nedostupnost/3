@@ -29,7 +29,7 @@ int main(void) {
     window.clear();
 
     for (auto &point : points) {
-      point.updateRM(time, window.getSize(), points);
+      point.updateLM(time, window.getSize(), points); // updateRM or updateLM
       point.draw(window);
     }
 
